@@ -37,18 +37,18 @@ class CustomDataset(Dataset):
             image = self.transform(image)
         return image, label
 
-    def makee_dataloaders(cfg):
-        transform = transforms.Compose([
-            transforms.ToTensor()])
+def make_dataloaders(cfg):
+    transform = transforms.Compose([
+        transforms.ToTensor()])
         
-        dataset = CustomDataset(transform=transform)
+    dataset = CustomDataset(transform=transform)
 
-        validation_size = int(len(dataset) * cfg.validation_split)
-        train_size = len(dataset) - validation_size
+    validation_size = int(len(dataset) * cfg.validation_split)
+    train_size = len(dataset) - validation_size
 
-        train_ds, validation_ds = random_split(dataset, [train_size, validation_size])
+    train_ds, validation_ds = random_split(dataset, [train_size, validation_size])
 
-        train_loader = DataLoader(train_ds, batch_size=cfg.batch_size, shuffle=True)
-        validation_loader = DataLoader(validation_ds, batch_size=cfg.batch_size, shuffle=False)
+    train_loader = DataLoader(train_ds, batch_size=cfg.batch_size, shuffle=True)
+    validation_loader = DataLoader(validation_ds, batch_size=cfg.batch_size, shuffle=False)
 
-        return train_loader, validation_loader
+    return train_loader, validation_loader
